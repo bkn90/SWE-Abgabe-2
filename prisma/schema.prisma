@@ -1,0 +1,54 @@
+/// https://github.com/prisma/prisma/releases/tag/6.12.0
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["nativeDistinct", "relationJoins"]
+  engineType      = "client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["plattform_account"]
+}
+
+model PlatformAccount {
+  id          Int       @id @default(autoincrement())
+  displayName String    @map("display_name")
+  ownerEmail  String    @map("owner_email")
+  createdAt   DateTime  @map("created_at")
+  updatedAt   DateTime  @map("updated_at")
+
+  // Relationen
+  billingAccount      BillingAccount?
+  moduleSubscriptions ModuleSubscription[]
+
+  @@map("platform_account")
+  @@schema("plattform_account")
+}
+
+model BillingAccount {
+  accountId    Int       @id @map("account_id")
+  vatId        String    @map("vat_id")
+  iban         String
+  invoiceEmail String    @map("invoice_email")
+
+  platformAccount PlatformAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@map("billing_account")
+  @@schema("plattform_account")
+}
+
+model ModuleSubscription {
+  subscriptionId Int      @id @default(autoincrement()) @map("subscription_id")
+  accountId      Int      @map("account_id")
+  moduleCode     String   @map("module_code")
+  startedAt      DateTime @map("started_at")
+  endsAt         DateTime? @map("ends_at")
+
+  platformAccount PlatformAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@map("module_subscription")
+  @@schema("plattform_account")
+}

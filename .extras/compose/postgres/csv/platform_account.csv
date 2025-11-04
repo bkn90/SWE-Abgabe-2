@@ -1,0 +1,4 @@
+id;display_name;owner_email;created_at;updated_at
+1;Acme GmbH;owner@acme.example;2025-10-01 09:15:00.000000;2025-10-01 09:15:00.000000
+2;Müller & Co. KG;kontakt@muellerco.example;2025-10-02 10:30:00.000000;2025-10-02 10:30:00.000000
+3;Trusted EU Services;ops@trusted-eu.example;2025-10-03 08:05:30.123456;2025-10-03 08:05:30.123456

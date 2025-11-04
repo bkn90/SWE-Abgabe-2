@@ -1,0 +1,4 @@
+account_id;vat_id;iban;invoice_email
+1;DE123456789;DE89370400440532013000;billing@acme.example
+2;DE987654321;DE44500105175407324931;rechnungen@muellerco.example
+3;ATU12345678;AT611904300234573201;invoices@trusted-eu.example
